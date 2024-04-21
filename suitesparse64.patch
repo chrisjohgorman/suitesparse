@@ -1,0 +1,1273 @@
+diff --git a/AMD/CMakeLists.txt b/AMD/CMakeLists.txt
+index 372e60e6c..c59f4087c 100644
+--- a/AMD/CMakeLists.txt
++++ b/AMD/CMakeLists.txt
+@@ -87,7 +87,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${AMD_VERSION_MAJOR}.${AMD_VERSION_MINOR}.${AMD_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME amd
++        OUTPUT_NAME amd64
+         SOVERSION ${AMD_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/amd.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -110,7 +110,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( AMD_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME amd
++        OUTPUT_NAME amd64
+         PUBLIC_HEADER "Include/amd.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -186,7 +186,7 @@ export ( EXPORT AMDTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT AMDTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/AMD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/AMD64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -200,7 +200,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/AMDConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/AMDConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/AMD )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/AMD64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/AMDConfigVersion.cmake
+@@ -209,7 +209,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/AMDConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/AMDConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/AMD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/AMD64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -241,11 +241,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT AMD.pc
++        OUTPUT AMD64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/AMD.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/AMD.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/AMD64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/BTF/CMakeLists.txt b/BTF/CMakeLists.txt
+index 043569d81..40533f93d 100644
+--- a/BTF/CMakeLists.txt
++++ b/BTF/CMakeLists.txt
+@@ -77,7 +77,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${BTF_VERSION_MAJOR}.${BTF_VERSION_MINOR}.${BTF_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME btf
++        OUTPUT_NAME btf64
+         SOVERSION ${BTF_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/btf.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON)
+@@ -101,7 +101,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( BTF_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME btf
++        OUTPUT_NAME btf64
+         PUBLIC_HEADER "Include/btf.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -172,7 +172,7 @@ export ( EXPORT BTFTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT BTFTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/BTF )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/BTF64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -186,7 +186,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/BTFConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/BTFConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/BTF )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/BTF64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/BTFConfigVersion.cmake
+@@ -195,7 +195,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/BTFConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/BTFConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/BTF )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/BTF64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -227,11 +227,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT BTF.pc
++        OUTPUT BTF64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/BTF.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/BTF.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/BTF64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/CAMD/CMakeLists.txt b/CAMD/CMakeLists.txt
+index ae1bcd0f0..7307eac8e 100644
+--- a/CAMD/CMakeLists.txt
++++ b/CAMD/CMakeLists.txt
+@@ -80,7 +80,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${CAMD_VERSION_MAJOR}.${CAMD_VERSION_MINOR}.${CAMD_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME camd
++        OUTPUT_NAME camd64
+         SOVERSION ${CAMD_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/camd.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -104,7 +104,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( CAMD_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME camd
++        OUTPUT_NAME camd64
+         PUBLIC_HEADER "Include/camd.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -178,7 +178,7 @@ export ( EXPORT CAMDTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT CAMDTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CAMD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CAMD64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -192,7 +192,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/CAMDConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/CAMDConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CAMD )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CAMD64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/CAMDConfigVersion.cmake
+@@ -201,7 +201,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/CAMDConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/CAMDConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CAMD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CAMD64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -233,11 +233,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT CAMD.pc
++        OUTPUT CAMD64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/CAMD.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/CAMD.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/CAMD64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/CCOLAMD/CMakeLists.txt b/CCOLAMD/CMakeLists.txt
+index 723cc6f2b..67e84ea73 100644
+--- a/CCOLAMD/CMakeLists.txt
++++ b/CCOLAMD/CMakeLists.txt
+@@ -77,7 +77,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${CCOLAMD_VERSION_MAJOR}.${CCOLAMD_VERSION_MINOR}.${CCOLAMD_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME ccolamd
++        OUTPUT_NAME ccolamd64
+         SOVERSION ${CCOLAMD_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/ccolamd.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -99,7 +99,7 @@ if ( BUILD_STATIC_LIBS )
+     add_library ( CCOLAMD_static STATIC ${CCOLAMD_SOURCES} )
+ 
+     set_target_properties ( CCOLAMD_static PROPERTIES
+-        OUTPUT_NAME ccolamd
++        OUTPUT_NAME ccolamd64
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+         PUBLIC_HEADER "Include/ccolamd.h" )
+@@ -175,7 +175,7 @@ export ( EXPORT CCOLAMDTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT CCOLAMDTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CCOLAMD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CCOLAMD64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -189,7 +189,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/CCOLAMDConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/CCOLAMDConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CCOLAMD )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CCOLAMD64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/CCOLAMDConfigVersion.cmake
+@@ -198,7 +198,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/CCOLAMDConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/CCOLAMDConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CCOLAMD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CCOLAMD64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -230,11 +230,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT CCOLAMD.pc
++        OUTPUT CCOLAMD64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/CCOLAMD.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/CCOLAMD.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/CCOLAMD64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/CHOLMOD/CMakeLists.txt b/CHOLMOD/CMakeLists.txt
+index 78d258879..b0eb4fdc0 100644
+--- a/CHOLMOD/CMakeLists.txt
++++ b/CHOLMOD/CMakeLists.txt
+@@ -331,7 +331,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${CHOLMOD_VERSION_MAJOR}.${CHOLMOD_VERSION_MINOR}.${CHOLMOD_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME cholmod
++        OUTPUT_NAME cholmod64
+         SOVERSION ${CHOLMOD_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/cholmod.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -360,7 +360,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( CHOLMOD_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME cholmod
++        OUTPUT_NAME cholmod64
+         PUBLIC_HEADER "Include/cholmod.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -606,7 +606,7 @@ export ( EXPORT CHOLMODTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT CHOLMODTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CHOLMOD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CHOLMOD64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE on )
+@@ -620,7 +620,7 @@ set ( SUITESPARSE_IN_BUILD_TREE off )
+ configure_package_config_file (
+     Config/CHOLMODConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/CHOLMODConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CHOLMOD )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CHOLMOD64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/CHOLMODConfigVersion.cmake
+@@ -629,7 +629,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/CHOLMODConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/CHOLMODConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CHOLMOD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CHOLMOD64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -693,11 +693,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT CHOLMOD.pc
++        OUTPUT CHOLMOD64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/CHOLMOD.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/CHOLMOD.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/CHOLMOD64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/COLAMD/CMakeLists.txt b/COLAMD/CMakeLists.txt
+index 4d4b17cfa..0fb3e2c61 100644
+--- a/COLAMD/CMakeLists.txt
++++ b/COLAMD/CMakeLists.txt
+@@ -77,7 +77,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${COLAMD_VERSION_MAJOR}.${COLAMD_VERSION_MINOR}.${COLAMD_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME colamd
++        OUTPUT_NAME colamd64
+         SOVERSION ${COLAMD_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/colamd.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -99,7 +99,7 @@ if ( BUILD_STATIC_LIBS )
+     add_library ( COLAMD_static STATIC ${COLAMD_SOURCES} )
+ 
+     set_target_properties ( COLAMD_static PROPERTIES
+-        OUTPUT_NAME colamd
++        OUTPUT_NAME colamd64
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+         PUBLIC_HEADER "Include/colamd.h" )
+@@ -175,7 +175,7 @@ export ( EXPORT COLAMDTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT COLAMDTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/COLAMD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/COLAMD64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -189,7 +189,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/COLAMDConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/COLAMDConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/COLAMD )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/COLAMD64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/COLAMDConfigVersion.cmake
+@@ -198,7 +198,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/COLAMDConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/COLAMDConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/COLAMD )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/COLAMD64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -230,11 +230,11 @@ if ( NOT MSVC )
+       @ONLY
+       NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT COLAMD.pc
++        OUTPUT COLAMD64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/COLAMD.pc.out
+         NEWLINE_STYLE LF )
+   install ( FILES
+-      ${CMAKE_CURRENT_BINARY_DIR}/COLAMD.pc
++      ${CMAKE_CURRENT_BINARY_DIR}/COLAMD64.pc
+       DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/CSparse/CMakeLists.txt b/CSparse/CMakeLists.txt
+index 8c5a889d9..147187759 100644
+--- a/CSparse/CMakeLists.txt
++++ b/CSparse/CMakeLists.txt
+@@ -108,7 +108,7 @@ if ( BUILD_STATIC_LIBS )
+     add_library ( csparse_static STATIC ${CSPARSE_SOURCES} )
+ 
+     set_target_properties ( csparse_static PROPERTIES
+-        OUTPUT_NAME csparse
++        OUTPUT_NAME csparse64
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+         PUBLIC_HEADER "Include/cs.h" )
+diff --git a/CXSparse/CMakeLists.txt b/CXSparse/CMakeLists.txt
+index 83fb4ed70..132fdcebe 100644
+--- a/CXSparse/CMakeLists.txt
++++ b/CXSparse/CMakeLists.txt
+@@ -117,7 +117,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${CXSPARSE_VERSION_MAJOR}.${CXSPARSE_VERSION_MINOR}.${CXSPARSE_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME cxsparse
++        OUTPUT_NAME cxsparse64
+         SOVERSION ${CXSPARSE_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/cs.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -139,7 +139,7 @@ if ( BUILD_STATIC_LIBS )
+     add_library ( CXSparse_static STATIC ${CXSPARSE_SOURCES} )
+ 
+     set_target_properties ( CXSparse_static PROPERTIES
+-        OUTPUT_NAME cxsparse
++        OUTPUT_NAME cxsparse64
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+         PUBLIC_HEADER "Include/cs.h" )
+@@ -215,7 +215,7 @@ export ( EXPORT CXSparseTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT CXSparseTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CXSparse )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CXSparse64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -229,7 +229,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/CXSparseConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/CXSparseConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CXSparse )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CXSparse64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/CXSparseConfigVersion.cmake
+@@ -238,7 +238,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/CXSparseConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/CXSparseConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CXSparse )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/CXSparse64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -270,11 +270,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT CXSparse.pc
++        OUTPUT CXSparse64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/CXSparse.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/CXSparse.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/CXSparse64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/GraphBLAS/CMakeLists.txt b/GraphBLAS/CMakeLists.txt
+index 8229506f9..52abf4966 100644
+--- a/GraphBLAS/CMakeLists.txt
++++ b/GraphBLAS/CMakeLists.txt
+@@ -280,7 +280,7 @@ if ( BUILD_SHARED_LIBS )
+ 
+     set_target_properties ( GraphBLAS PROPERTIES
+         VERSION ${GraphBLAS_VERSION_MAJOR}.${GraphBLAS_VERSION_MINOR}.${GraphBLAS_VERSION_SUB}
+-        OUTPUT_NAME graphblas
++        OUTPUT_NAME graphblas64
+         SOVERSION ${GraphBLAS_VERSION_MAJOR}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+@@ -321,7 +321,7 @@ if ( BUILD_STATIC_LIBS )
+     add_library ( GraphBLAS_static STATIC ${GRAPHBLAS_SOURCES} )
+ 
+     set_target_properties ( GraphBLAS_static PROPERTIES
+-        OUTPUT_NAME graphblas
++        OUTPUT_NAME graphblas64
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+         PUBLIC_HEADER "Include/GraphBLAS.h" )
+@@ -606,7 +606,7 @@ export ( EXPORT GraphBLASTargets
+ # install export target and config for find_package
+ install ( EXPORT GraphBLASTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/GraphBLAS )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/GraphBLAS64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -620,7 +620,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/GraphBLASConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/GraphBLASConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/GraphBLAS )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/GraphBLAS64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/GraphBLASConfigVersion.cmake
+@@ -629,7 +629,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/GraphBLASConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/GraphBLASConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/GraphBLAS )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/GraphBLAS64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -688,11 +688,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT GraphBLAS.pc
++        OUTPUT GraphBLAS64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/GraphBLAS.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/GraphBLAS.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/GraphBLAS64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/KLU/CMakeLists.txt b/KLU/CMakeLists.txt
+index 984507b8d..b26dcf454 100644
+--- a/KLU/CMakeLists.txt
++++ b/KLU/CMakeLists.txt
+@@ -135,7 +135,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${KLU_VERSION_MAJOR}.${KLU_VERSION_MINOR}.${KLU_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME klu
++        OUTPUT_NAME klu64
+         SOVERSION ${KLU_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/klu.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -159,7 +159,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( KLU_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME klu
++        OUTPUT_NAME klu64
+         PUBLIC_HEADER "Include/klu.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -191,7 +191,7 @@ if ( KLU_HAS_CHOLMOD )
+             VERSION ${KLU_VERSION_MAJOR}.${KLU_VERSION_MINOR}.${KLU_VERSION_SUB}
+             C_STANDARD 11
+             C_STANDARD_REQUIRED ON
+-            OUTPUT_NAME klu_cholmod
++            OUTPUT_NAME klu_cholmod64
+             SOVERSION ${KLU_VERSION_MAJOR}
+             PUBLIC_HEADER "User/klu_cholmod.h" )
+ 
+@@ -210,7 +210,7 @@ if ( KLU_HAS_CHOLMOD )
+         set_target_properties ( KLU_CHOLMOD_static PROPERTIES
+             C_STANDARD 11
+             C_STANDARD_REQUIRED ON
+-            OUTPUT_NAME klu_cholmod
++            OUTPUT_NAME klu_cholmod64
+             PUBLIC_HEADER "User/klu_cholmod.h" )
+ 
+         if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -360,7 +360,7 @@ export ( EXPORT KLUTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT KLUTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -374,7 +374,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/KLUConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/KLUConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/KLUConfigVersion.cmake
+@@ -383,7 +383,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/KLUConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/KLUConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file for KLU
+@@ -415,11 +415,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT KLU.pc
++        OUTPUT KLU64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/KLU.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/KLU.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/KLU64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+@@ -451,7 +451,7 @@ if ( KLU_HAS_CHOLMOD )
+     # install export target, config and version files for find_package
+     install ( EXPORT KLU_CHOLMODTargets
+         NAMESPACE SuiteSparse::
+-        DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU_CHOLMOD )
++        DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU_CHOLMOD64 )
+ 
+     # generate config file to be used in common build tree
+     set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -465,7 +465,7 @@ if ( KLU_HAS_CHOLMOD )
+     configure_package_config_file (
+         Config/KLU_CHOLMODConfig.cmake.in
+         ${CMAKE_CURRENT_BINARY_DIR}/target/KLU_CHOLMODConfig.cmake
+-        INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU_CHOLMOD )
++        INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU_CHOLMOD64 )
+ 
+     write_basic_package_version_file (
+         ${CMAKE_CURRENT_BINARY_DIR}/KLU_CHOLMODConfigVersion.cmake
+@@ -474,7 +474,7 @@ if ( KLU_HAS_CHOLMOD )
+     install ( FILES
+         ${CMAKE_CURRENT_BINARY_DIR}/KLU_CHOLMODConfig.cmake
+         ${CMAKE_CURRENT_BINARY_DIR}/KLU_CHOLMODConfigVersion.cmake
+-        DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU_CHOLMOD )
++        DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/KLU_CHOLMOD64 )
+ 
+     #---------------------------------------------------------------------------
+     # create pkg-config file for KLU_CHOLMOD
+@@ -506,11 +506,11 @@ if ( KLU_HAS_CHOLMOD )
+             @ONLY
+             NEWLINE_STYLE LF )
+         file ( GENERATE
+-            OUTPUT KLU_CHOLMOD.pc
++            OUTPUT KLU_CHOLMOD64.pc
+             INPUT ${CMAKE_CURRENT_BINARY_DIR}/KLU_CHOLMOD.pc.out
+             NEWLINE_STYLE LF )
+         install ( FILES
+-            ${CMAKE_CURRENT_BINARY_DIR}/KLU_CHOLMOD.pc
++            ${CMAKE_CURRENT_BINARY_DIR}/KLU_CHOLMOD64.pc
+             DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+     endif ( )
+ endif ( )
+diff --git a/LAGraph/CMakeLists.txt b/LAGraph/CMakeLists.txt
+index b8685d669..03566fc54 100644
+--- a/LAGraph/CMakeLists.txt
++++ b/LAGraph/CMakeLists.txt
+@@ -326,7 +326,7 @@ export ( EXPORT LAGraphTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT LAGraphTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LAGraph )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LAGraph64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -340,7 +340,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     config/LAGraphConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/LAGraphConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LAGraph )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LAGraph64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/LAGraphConfigVersion.cmake
+@@ -350,7 +350,7 @@ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/LAGraphConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/LAGraphConfigVersion.cmake
+     ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/FindGraphBLAS.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LAGraph )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LAGraph64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -417,10 +417,10 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT LAGraph.pc
++        OUTPUT LAGraph64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/LAGraph.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/LAGraph.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/LAGraph64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+diff --git a/LAGraph/experimental/CMakeLists.txt b/LAGraph/experimental/CMakeLists.txt
+index 217abb9b9..70a0143dd 100644
+--- a/LAGraph/experimental/CMakeLists.txt
++++ b/LAGraph/experimental/CMakeLists.txt
+@@ -28,7 +28,7 @@ if ( BUILD_SHARED_LIBS )
+     set_target_properties ( LAGraphX PROPERTIES
+         VERSION ${LAGraph_VERSION_MAJOR}.${LAGraph_VERSION_MINOR}.${LAGraph_VERSION_SUB}
+         SOVERSION ${LAGraph_VERSION_MAJOR}
+-        OUTPUT_NAME lagraphx
++        OUTPUT_NAME lagraphx64
+         C_STANDARD_REQUIRED ON
+         C_STANDARD 11
+         PUBLIC_HEADER "include/LAGraphX.h"
+@@ -55,7 +55,7 @@ endif ( )
+ if ( BUILD_STATIC_LIBS )
+     add_library ( LAGraphX_static STATIC ${LAGRAPHX_LIB_SOURCES} )
+     set_target_properties ( LAGraphX_static PROPERTIES
+-        OUTPUT_NAME lagraphx
++        OUTPUT_NAME lagraphx64
+         POSITION_INDEPENDENT_CODE OFF
+         C_STANDARD_REQUIRED ON
+         C_STANDARD 11
+diff --git a/LAGraph/src/CMakeLists.txt b/LAGraph/src/CMakeLists.txt
+index 451f0bd2b..116ec7eb2 100644
+--- a/LAGraph/src/CMakeLists.txt
++++ b/LAGraph/src/CMakeLists.txt
+@@ -26,7 +26,7 @@ if ( BUILD_SHARED_LIBS )
+     set_target_properties ( LAGraph PROPERTIES
+         VERSION ${LAGraph_VERSION_MAJOR}.${LAGraph_VERSION_MINOR}.${LAGraph_VERSION_SUB}
+         SOVERSION ${LAGraph_VERSION_MAJOR}
+-        OUTPUT_NAME lagraph
++        OUTPUT_NAME lagraph64
+         C_STANDARD_REQUIRED ON
+         C_STANDARD 11
+         PUBLIC_HEADER "include/LAGraph.h"
+@@ -57,7 +57,7 @@ endif ( )
+ if ( BUILD_STATIC_LIBS )
+     add_library ( LAGraph_static STATIC ${LAGRAPH_LIB_SOURCES} )
+     SET_TARGET_PROPERTIES ( LAGraph_static PROPERTIES
+-        OUTPUT_NAME lagraph
++        OUTPUT_NAME lagraph64
+         POSITION_INDEPENDENT_CODE OFF
+         C_STANDARD_REQUIRED ON
+         C_STANDARD 11
+diff --git a/LDL/CMakeLists.txt b/LDL/CMakeLists.txt
+index 84f504b9b..55e027e37 100644
+--- a/LDL/CMakeLists.txt
++++ b/LDL/CMakeLists.txt
+@@ -89,7 +89,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${LDL_VERSION_MAJOR}.${LDL_VERSION_MINOR}.${LDL_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME ldl
++        OUTPUT_NAME ldl64
+         SOVERSION ${LDL_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/ldl.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -113,7 +113,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( LDL_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME ldl
++        OUTPUT_NAME ldl64
+         PUBLIC_HEADER "Include/ldl.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -184,7 +184,7 @@ export ( EXPORT LDLTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT LDLTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LDL )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LDL64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -198,7 +198,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/LDLConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/LDLConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LDL )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LDL64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/LDLConfigVersion.cmake
+@@ -207,7 +207,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/LDLConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/LDLConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LDL )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/LDL64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -239,11 +239,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT LDL.pc
++        OUTPUT LDL64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/LDL.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/LDL.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/LDL64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/Mongoose/CMakeLists.txt b/Mongoose/CMakeLists.txt
+index a6ba8a368..b7cea7550 100644
+--- a/Mongoose/CMakeLists.txt
++++ b/Mongoose/CMakeLists.txt
+@@ -202,7 +202,7 @@ if ( BUILD_STATIC_LIBS )
+     add_library ( Mongoose_static STATIC ${MONGOOSE_LIB_FILES} )
+ 
+     set_target_properties ( Mongoose_static PROPERTIES
+-        OUTPUT_NAME suitesparse_mongoose
++        OUTPUT_NAME suitesparse_mongoose64
+         PUBLIC_HEADER "Include/Mongoose.hpp" )
+ 
+     if ( MSVC OR ("${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -232,7 +232,7 @@ if ( BUILD_SHARED_LIBS )
+     add_library ( Mongoose SHARED ${MONGOOSE_LIB_FILES} )
+ 
+     set_target_properties ( Mongoose PROPERTIES
+-        OUTPUT_NAME suitesparse_mongoose
++        OUTPUT_NAME suitesparse_mongoose64
+         SOVERSION ${Mongoose_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/Mongoose.hpp"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON
+@@ -260,7 +260,7 @@ endif ( )
+ # Build the Mongoose executable
+ add_executable ( mongoose_exe ${EXE_FILES} )
+ set_target_properties ( mongoose_exe PROPERTIES
+-        OUTPUT_NAME suitesparse_mongoose )
++        OUTPUT_NAME suitesparse_mongoose64 )
+ if ( BUILD_SHARED_LIBS )
+     target_link_libraries ( mongoose_exe PRIVATE Mongoose )
+ else ( )
+@@ -573,7 +573,7 @@ export ( EXPORT SuiteSparse_MongooseTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT SuiteSparse_MongooseTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_Mongoose )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_Mongoose64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -587,7 +587,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/SuiteSparse_MongooseConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/SuiteSparse_MongooseConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_Mongoose )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_Mongoose64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_MongooseConfigVersion.cmake
+@@ -596,7 +596,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/SuiteSparse_MongooseConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_MongooseConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_Mongoose )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_Mongoose64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -628,11 +628,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT SuiteSparse_Mongoose.pc
++        OUTPUT SuiteSparse_Mongoose64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_Mongoose.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_Mongoose.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_Mongoose64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/ParU/CMakeLists.txt b/ParU/CMakeLists.txt
+index 7055750b1..2bbd1d44c 100644
+--- a/ParU/CMakeLists.txt
++++ b/ParU/CMakeLists.txt
+@@ -153,7 +153,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${PARU_VERSION_MAJOR}.${PARU_VERSION_MINOR}.${PARU_VERSION_UPDATE}
+         CXX_STANDARD 11
+         CXX_STANDARD_REQUIRED ON
+-        OUTPUT_NAME paru
++        OUTPUT_NAME paru64
+         SOVERSION ${PARU_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/ParU.hpp;Include/ParU_C.h;Include/ParU_definitions.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -177,7 +177,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( ParU_static PROPERTIES
+         CXX_STANDARD 11
+         CXX_STANDARD_REQUIRED ON
+-        OUTPUT_NAME paru
++        OUTPUT_NAME paru64
+         PUBLIC_HEADER "Include/ParU.hpp;Include/ParU_C.h;Include/ParU_definitions.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+ 
+@@ -320,7 +320,7 @@ export ( EXPORT ParUTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT ParUTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/ParU )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/ParU64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -334,7 +334,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/ParUConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/ParUConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/ParU )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/ParU64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/ParUConfigVersion.cmake
+@@ -343,7 +343,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/ParUConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/ParUConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/ParU )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/ParU64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -402,11 +402,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT ParU.pc
++        OUTPUT ParU64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/ParU.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/ParU.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/ParU64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/RBio/CMakeLists.txt b/RBio/CMakeLists.txt
+index 83e861700..c8eb0da8d 100644
+--- a/RBio/CMakeLists.txt
++++ b/RBio/CMakeLists.txt
+@@ -77,7 +77,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${RBIO_VERSION_MAJOR}.${RBIO_VERSION_MINOR}.${RBIO_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME rbio
++        OUTPUT_NAME rbio64
+         SOVERSION ${RBIO_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/RBio.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -101,7 +101,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( RBio_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME rbio
++        OUTPUT_NAME rbio64
+         PUBLIC_HEADER "Include/RBio.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -176,7 +176,7 @@ export ( EXPORT RBioTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT RBioTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/RBio )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/RBio64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -190,7 +190,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/RBioConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/RBioConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/RBio )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/RBio64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/RBioConfigVersion.cmake
+@@ -199,7 +199,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/RBioConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/RBioConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/RBio )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/RBio64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -231,11 +231,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT RBio.pc
++        OUTPUT RBio64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/RBio.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/RBio.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/RBio64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/SPEX/CMakeLists.txt b/SPEX/CMakeLists.txt
+index b9a3929b9..c3b4c0571 100644
+--- a/SPEX/CMakeLists.txt
++++ b/SPEX/CMakeLists.txt
+@@ -131,7 +131,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${SPEX_VERSION_MAJOR}.${SPEX_VERSION_MINOR}.${SPEX_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME spex
++        OUTPUT_NAME spex64
+         SOVERSION ${SPEX_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/SPEX.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -155,7 +155,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( SPEX_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME spex
++        OUTPUT_NAME spex64
+         PUBLIC_HEADER "Include/SPEX.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -298,7 +298,7 @@ export ( EXPORT SPEXTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT SPEXTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPEX )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPEX64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -312,7 +312,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/SPEXConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/SPEXConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPEX )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPEX64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/SPEXConfigVersion.cmake
+@@ -323,7 +323,7 @@ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/SPEXConfigVersion.cmake
+     ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/FindGMP.cmake
+     ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/FindMPFR.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPEX )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPEX64 )
+ 
+ #-------------------------------------------------------------------------------
+ # configure MATLAB
+@@ -399,11 +399,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT SPEX.pc
++        OUTPUT SPEX64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/SPEX.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/SPEX.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/SPEX64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+@@ -414,9 +414,9 @@ endif ( )
+ if ( BUILD_SHARED_LIBS )
+ 
+     file ( GLOB SPEX_PYTHON_SOURCES "Python/SPEXpy/Source/*.c" )
+-    add_library ( spexpython SHARED ${SPEX_PYTHON_SOURCES} )
++    add_library ( spexpython64 SHARED ${SPEX_PYTHON_SOURCES} )
+ 
+-    set_target_properties ( spexpython PROPERTIES
++    set_target_properties ( spexpython64 PROPERTIES
+         VERSION ${SPEX_VERSION_MAJOR}.${SPEX_VERSION_MINOR}.${SPEX_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+@@ -424,17 +424,17 @@ if ( BUILD_SHARED_LIBS )
+         PUBLIC_HEADER "Python/SPEXpy/Source/spex_python_connect.h" )
+ 
+     # MPFR:
+-    target_link_libraries ( spexpython PRIVATE ${MPFR_LIBRARIES} )
++    target_link_libraries ( spexpython64 PRIVATE ${MPFR_LIBRARIES} )
+ 
+     # GMP:
+     # must occur after MPFR
+-    target_link_libraries ( spexpython PRIVATE ${GMP_LIBRARIES} )
++    target_link_libraries ( spexpython64 PRIVATE ${GMP_LIBRARIES} )
+ 
+-    target_link_libraries ( spexpython PRIVATE SuiteSparse::COLAMD )
+-    target_link_libraries ( spexpython PRIVATE SuiteSparse::AMD )
+-    target_link_libraries ( spexpython PRIVATE SPEX )
++    target_link_libraries ( spexpython64 PRIVATE SuiteSparse::COLAMD )
++    target_link_libraries ( spexpython64 PRIVATE SuiteSparse::AMD )
++    target_link_libraries ( spexpython64 PRIVATE SPEX )
+ 
+-    install ( TARGETS spexpython
++    install ( TARGETS spexpython64
+         LIBRARY DESTINATION ${SUITESPARSE_LIBDIR}
+         ARCHIVE DESTINATION ${SUITESPARSE_LIBDIR}
+         RUNTIME DESTINATION ${SUITESPARSE_BINDIR}
+diff --git a/SPQR/CMakeLists.txt b/SPQR/CMakeLists.txt
+index e45e16829..9d6e8a736 100644
+--- a/SPQR/CMakeLists.txt
++++ b/SPQR/CMakeLists.txt
+@@ -110,7 +110,7 @@ if ( BUILD_SHARED_LIBS )
+         CXX_STANDARD_REQUIRED ON
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME spqr
++        OUTPUT_NAME spqr64
+         SOVERSION ${SPQR_VERSION_MAJOR}
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+ 
+@@ -136,7 +136,7 @@ if ( BUILD_STATIC_LIBS )
+         CXX_STANDARD_REQUIRED ON
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME spqr )
++        OUTPUT_NAME spqr64 )
+ 
+     if ( MSVC OR ("${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC") )
+         set_target_properties ( SPQR_static PROPERTIES
+@@ -270,7 +270,7 @@ export ( EXPORT SPQRTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT SPQRTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPQR )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPQR64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -284,7 +284,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/SPQRConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/SPQRConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPQR )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPQR64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/SPQRConfigVersion.cmake
+@@ -293,7 +293,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/SPQRConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/SPQRConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPQR )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SPQR64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -352,11 +352,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT SPQR.pc
++        OUTPUT SPQR64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/SPQR.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/SPQR.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/SPQR64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/SuiteSparse_config/CMakeLists.txt b/SuiteSparse_config/CMakeLists.txt
+index 690fba003..fa449d245 100644
+--- a/SuiteSparse_config/CMakeLists.txt
++++ b/SuiteSparse_config/CMakeLists.txt
+@@ -147,7 +147,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${SUITESPARSE_VERSION_MAJOR}.${SUITESPARSE_VERSION_MINOR}.${SUITESPARSE_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME suitesparseconfig
++        OUTPUT_NAME suitesparseconfig64
+         SOVERSION ${SUITESPARSE_VERSION_MAJOR}
+         PUBLIC_HEADER "SuiteSparse_config.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -171,7 +171,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( SuiteSparseConfig_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME suitesparseconfig
++        OUTPUT_NAME suitesparseconfig64
+         PUBLIC_HEADER "SuiteSparse_config.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -279,12 +279,12 @@ export ( EXPORT SuiteSparse_configTargets
+ # install export target and config for find_package
+ install ( EXPORT SuiteSparse_configTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_config )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_config64 )
+ 
+ configure_package_config_file (
+     Config/SuiteSparse_configConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_configConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_config )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_config64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_configConfigVersion.cmake
+@@ -293,7 +293,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_configConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_configConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_config )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/SuiteSparse_config64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -352,11 +352,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT SuiteSparse_config.pc
++        OUTPUT SuiteSparse_config64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_config.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_config.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/SuiteSparse_config64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
+diff --git a/UMFPACK/CMakeLists.txt b/UMFPACK/CMakeLists.txt
+index 24d858b71..7738d3c8a 100644
+--- a/UMFPACK/CMakeLists.txt
++++ b/UMFPACK/CMakeLists.txt
+@@ -130,7 +130,7 @@ if ( BUILD_SHARED_LIBS )
+         VERSION ${UMFPACK_VERSION_MAJOR}.${UMFPACK_VERSION_MINOR}.${UMFPACK_VERSION_SUB}
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME umfpack
++        OUTPUT_NAME umfpack64
+         SOVERSION ${UMFPACK_VERSION_MAJOR}
+         PUBLIC_HEADER "Include/umfpack.h"
+         WINDOWS_EXPORT_ALL_SYMBOLS ON )
+@@ -154,7 +154,7 @@ if ( BUILD_STATIC_LIBS )
+     set_target_properties ( UMFPACK_static PROPERTIES
+         C_STANDARD 11
+         C_STANDARD_REQUIRED ON
+-        OUTPUT_NAME umfpack
++        OUTPUT_NAME umfpack64
+         PUBLIC_HEADER "Include/umfpack.h" )
+ 
+     if ( MSVC OR ("${CMAKE_C_SIMULATE_ID}" STREQUAL "MSVC") )
+@@ -463,7 +463,7 @@ export ( EXPORT UMFPACKTargets
+ # install export target, config and version files for find_package
+ install ( EXPORT UMFPACKTargets
+     NAMESPACE SuiteSparse::
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/UMFPACK )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/UMFPACK64 )
+ 
+ # generate config file to be used in common build tree
+ set ( SUITESPARSE_IN_BUILD_TREE ON )
+@@ -477,7 +477,7 @@ set ( SUITESPARSE_IN_BUILD_TREE OFF )
+ configure_package_config_file (
+     Config/UMFPACKConfig.cmake.in
+     ${CMAKE_CURRENT_BINARY_DIR}/target/UMFPACKConfig.cmake
+-    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/UMFPACK )
++    INSTALL_DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/UMFPACK64 )
+ 
+ write_basic_package_version_file (
+     ${CMAKE_CURRENT_BINARY_DIR}/UMFPACKConfigVersion.cmake
+@@ -486,7 +486,7 @@ write_basic_package_version_file (
+ install ( FILES
+     ${CMAKE_CURRENT_BINARY_DIR}/target/UMFPACKConfig.cmake
+     ${CMAKE_CURRENT_BINARY_DIR}/UMFPACKConfigVersion.cmake
+-    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/UMFPACK )
++    DESTINATION ${SUITESPARSE_PKGFILEDIR}/cmake/UMFPACK64 )
+ 
+ #-------------------------------------------------------------------------------
+ # create pkg-config file
+@@ -545,11 +545,11 @@ if ( NOT MSVC )
+         @ONLY
+         NEWLINE_STYLE LF )
+     file ( GENERATE
+-        OUTPUT UMFPACK.pc
++        OUTPUT UMFPACK64.pc
+         INPUT ${CMAKE_CURRENT_BINARY_DIR}/UMFPACK.pc.out
+         NEWLINE_STYLE LF )
+     install ( FILES
+-        ${CMAKE_CURRENT_BINARY_DIR}/UMFPACK.pc
++        ${CMAKE_CURRENT_BINARY_DIR}/UMFPACK64.pc
+         DESTINATION ${SUITESPARSE_PKGFILEDIR}/pkgconfig )
+ endif ( )
+ 
