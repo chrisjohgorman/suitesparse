@@ -1,4 +1,4 @@
-pkgbase = suitesparse
+pkgbase = suitesparse64
 	pkgdesc = A collection of sparse matrix libraries
 	pkgver = 7.7.0
 	pkgrel = 1
@@ -7,14 +7,16 @@ pkgbase = suitesparse
 	license = GPL
 	makedepends = cmake
 	makedepends = gcc-fortran
-	depends = blas
+	depends = blas64
 	depends = gcc-libs
 	depends = glibc
 	depends = gmp
-	depends = lapack
+	depends = lapack64
 	depends = mpfr
 	replaces = suitesparse64<7.1.0
 	source = https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v7.7.0/suitesparse-7.7.0.tar.gz
+	source = suitesparse64.patch
 	sha256sums = 529b067f5d80981f45ddf6766627b8fc5af619822f068f342aab776e683df4f3
+	sha256sums = 39bcb00ceff97c125550f261ad217ab7eef2cdf46e7b9ddb2a61cb84f40470c8
 
-pkgname = suitesparse
+pkgname = suitesparse64
